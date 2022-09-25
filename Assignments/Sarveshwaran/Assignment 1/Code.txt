@@ -1,0 +1,52 @@
+// C++ code
+//
+int dchigh = 13;
+int dclow = 12;
+int echo = 3;
+int trig = 2;
+int ledred = 5;//rgb led
+int ledgreen = 4;//rgb led
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(dchigh, OUTPUT);
+  pinMode(dclow, OUTPUT);
+  pinMode(trig, OUTPUT);
+  pinMode(ledred, OUTPUT);
+  pinMode(ledgreen, OUTPUT);
+  pinMode(echo, INPUT);
+}
+
+void loop()
+{
+  digitalWrite(trig, LOW);
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trig, LOW);
+  float duration = pulseIn(echo, HIGH);
+  float distance = (duration * 0.0343)/2;
+  
+  /*Motor and Green led is on when distance between ultrasonic sensor
+  water level is more than 15 centimeters*/
+  
+  if(distance > 15)
+  {
+    Serial.println("Water Level is Low");
+    digitalWrite(dchigh, HIGH);
+    digitalWrite(dclow, LOW);
+    digitalWrite(ledgreen, HIGH);
+    digitalWrite(ledred, LOW);
+  }
+  
+  /*Motor is off and red led is on when distance between ultrasonic sensor
+  water level is less than 15 centimeters*/
+  
+  else
+  {
+    Serial.println("Tank is Full");
+    digitalWrite(dchigh, LOW);
+    digitalWrite(ledgreen, LOW);
+    digitalWrite(ledred, HIGH);
+  }
+  delay(2000);
+}
