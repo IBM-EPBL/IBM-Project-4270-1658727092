@@ -1,0 +1,64 @@
+Assigment 3
+
+Blinking LED
+-----------------------
+import RPi.GPIO as gpio
+from time import sleep
+
+gpio.setmode(gpio.BOARD)
+gpio.setup(8,gpio.OUT)
+
+while True:
+  gpio.output(8,1)
+  sleep(1)
+  gpio.output(8,0)
+  sleep(1)
+-----------------------
+
+
+Traffic Light
+-----------------------
+import RPi.GPIO as gpio
+from time import sleep
+
+green1 = 8; orange1 = 10; red1 = 12;
+green2 = 11; orange2 = 13; red2 = 15;
+green3 = 19; orange3 = 21; red3 = 23;
+green4 = 22; orange4 = 24; red4 = 26;
+
+gpio.setmode(gpio.BOARD)
+gpio.setup([green1,orange1,red1,green2,orange2,red2,green3,orange3,red3,green4,orange4,red4],gpio.OUT)
+
+while True:
+  gpio.output([green1,red2,red3,red4],1)
+  gpio.output([orange1,red1,green2,orange2,green3,orange3,green4,orange4],0)
+  sleep(4)
+  
+  gpio.output(green1,0)
+  gpio.output(orange1,1)
+  sleep(1)
+  
+  gpio.output([orange1,red2],0)
+  gpio.output([red1,green2],1)
+  sleep(4)
+  
+  gpio.output(green2,0)
+  gpio.output(orange2,1)
+  sleep(1)
+  
+  gpio.output([orange2,red3],0)
+  gpio.output([red2,green3],1)
+  sleep(4)
+  
+  gpio.output(green3,0)
+  gpio.output(orange3,1)
+  sleep(1)
+  
+  gpio.output([orange3,red4],0)
+  gpio.output([red3,green4],1)
+  sleep(4)
+  
+  gpio.output(green4,0)
+  gpio.output(orange4,1)
+  sleep(1)
+-----------------------
